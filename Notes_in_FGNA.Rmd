@@ -53,8 +53,11 @@ make_full_graph(5)
 print_all(make_full_graph(4, directed = F))
 ```
 
+<<<<<<< HEAD
 ```{r}
 st <- make_star(10)
 plot(st, vertex.size=5, vertex.label=NA)
 ```
 
+=======
+>>>>>>> 93aa1e2bc394533a9cafce1a906f9b0832333f43
