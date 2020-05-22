@@ -1,0 +1,125 @@
+---
+title: "Connectivity and Eulerian and Hamiltonian Graphs"
+subtitle: Finite Graphs and Network Analysis
+author: |
+  | Orville D. Hombrebueno
+  | odhombrebueno@nvsu.edu.ph
+date: "May 22, 2020"
+output: 
+    pdf_document
+fontsize: 12pt
+bibliography: connectivity.bib
+csl: apa.csl
+documentclass: article
+header-includes: 
+  - \usepackage{multicol}
+---
+```{r include=FALSE}
+knitr::opts_chunk$set(echo = F)
+knitr::opts_chunk$set(message = F)
+```
+
+```{r}
+library(igraph) # Load the igraph package
+```
+# Graph $G$
+
+```{r, fig.height=9,fig.width=6}
+g3<-graph_from_literal(2--3, 2--5, 2--11, 2--13, 3--4, 3--5, 3--10, 3--11, 3--13, 3--14, 4--5, 4--11, 4--13, 5--11, 5--12, 5--13, 5--14, 10--11, 10--13, 11--12, 11--13, 11--14, 12--13, 13--14)
+
+plot(g3, vertex.shape="none") # A simple plot of g3. 
+```
+
+Graph $G$ above is defined by $V(G)=\{2,3,4,5,10,11,12,13,14\}$ and two vertices $a$ and $b$ are joined by an edge if and only if $\text{gcd}(a,b)=1$. Graph $G$ is undirected but is not a complete graph. It has $9$ vertices and $24$ edges. The list of edges is shown below.
+
+\begin{multicols}{4}
+\begin{enumerate}
+\item $(2,3)$
+\item $(2,5)$
+\item $(2,11)$
+\item $(2,13)$
+\item $(3,5)$
+\item $(3,11)$
+\item $(3,13)$
+\item $(3,4)$
+\item $(3,10)$
+\item $(3,14)$
+\item $(5,11)$
+\item $(5,13)$
+\item $(5,4)$
+\item $(5,14)$
+\item $(5,12)$
+\item $(11,13)$
+\item $(11,4)$
+\item $(11,10)$
+\item $(11,14)$
+\item $(11,12)$
+\item $(13,4)$
+\item $(13,10)$
+\item $(13,14)$
+\item $(13,12)$
+\end{enumerate}
+\end{multicols}
+
+The incident edges of $V(G)$ is shown below.
+
+  - $2$ $(2,3),(2,5),(2,11),(2,13)$
+
+  - $3$ $(3,2),(3,4),(3,5),(3,10),(3,11),(3,13),(3,14)$
+
+  - $4$ $(4,3),(4,5),(4,11),(4,13)$
+
+  - $5$ $(5,2),(5,3),(5,4),(5,11),(5,12),(5,13),(5,14)$
+
+  - $10$ $(10,3),(10,11),(10,13)$
+
+  - $11$ $(11,2),(11,3),(11,4),(11,5),(11,10),(11,12),(11,13),(11,14)$
+
+  - $12$ $(12,5),(12,11),(12,13)$
+
+  - $13$ $(13,2),(13,3),(13,4),(13,5),(13,10),(13,11),(13,12),(13,14)$
+
+  - $14$ $(14,3),(14,5),(14,11),(14,13)$
+
+```{r, results='hide'}
+vcount(g3)
+ecount(g3)
+get.edgelist(g3)
+incident_edges(g3,V(g3))
+```
+
+\pagebreak
+
+# Connectivity of Graph $G$
+
+Graph $G$ is connected. Looking at the graph of $G$ above, we can see that the $\text{deg}(V)=\{4,7,4,7,3,8,3,8,4\}$. Also, the connectivity of $G$, $\kappa(G)$, is the $\text{min}(\text{deg}(V))=3$; the size of the minimum vertex cut. Hence, $G$ is 3-connected. Removing 3 vertices adjacent to the vertices with degree 3 (vertices 10 and 12) will render $G$ disconnected. Let $A=\{5,11,13\}$ such that $A\subset V$ be a vertex cut of size 3. Removing $A$ from $G$ renders $G$ disconnected. The graph below shows the disconnected graph. The dashed lines and the numbers in italic are the edges and vertices removed from $G$ respectively. The remaining edges and vertices are solid lines and bold numbers.
+
+```{r,fig.height=5.6,fig.width=6}
+plot(g3,vertex.shape="none",edge.lty=c(1,2,2,2,2,2,2,1,1,1,2,2,2,2,2,2,2,2,2,2,2,2,2,2), vertex.label.font=c(2,2,3,3,3,2,2,2,2))
+```
+
+Moreover, the edge-connectivity of $G$, $\lambda(G)$, is the size of the smallest edge cut which is 3. Hence, $G$ is 3-edge-connected. Removing 3 edges incident to the vertices with degree 3 will also render $G$ disconnected. Let $B=\{(5,12),(11,12),(13,12)\}$ such that $B\subset E$ be an edge cut of size 3. Removing $B$ from $G$ renders $G$ disconnected. The graph below shows the disconnected graph wherein the dashed lines are edges in $B$.
+
+```{r,fig.height=7,fig.width=6}
+plot(g3,vertex.shape="none",edge.lty=c(1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,1,1,1,1,2,1,1,1,2), vertex.label.font=2)
+```
+
+Now, graph $G$ is maximally connected and maximally edge-connected since its connectivity and edge-connectivity equals its minimum degree. Also, every minimum vertex cut isolates a vertex and the deletion of each minimum vertex cut creates exactly two components, one of which is an isolated vertex. Furthermore, all minimum vertex cuts consist of the vertices adjacent with one (minimum-degree) vertex and all minimum edge cuts consist of the edges incident on some (minimum-degree) vertex. Therefore, we can conclude that $G$ is super-connected, hyper-connected and super-edge-connected. The superconnectivity $super \text{-} \kappa(G)=3$ and the super-edge-connectivity $super \text{-}\lambda(G)=3$ [@gross03].
+
+\pagebreak
+
+# Is Graph $G$ Eulerian?
+
+Graph $G$ is not Eulerian. We can easily see this since the degree of some vertices are not even [@wilson10]. Graph $G$ is also not a semi-Eulerian. According to Wilson, "A connected graph is semi-Eulerian if and only if it has exactly two vertices of odd degree." Graph $G$ has 4 vertices with odd degree. Therefore, graph $G$ is non-Eulerian.
+
+\pagebreak
+
+# Is Graph $G$ Hamiltonian?
+
+According to Ore (1960), "If $G$ is a simple graph with $n\:(\geq3)$ vertices, and if $\text{deg}(v)+\text{deg}(w)\geq n$ for each pair of non-adjacent vertices $v$ and $w$, then $G$ is Hamiltonian" [as cited in @wilson10]. Graph $G$ is not Hamiltonian. Applying Ore's definition, we can easily verify that the sum of the degrees of the non-adjacent vertices $2$ and $4$ is $8$ and is less than 9; the number of vertices in $G$. However, we can show that there is a path through every vertex. The path $4 \rightarrow 5 \rightarrow 12 \rightarrow13\rightarrow14\rightarrow11\rightarrow10\rightarrow3\rightarrow2$ is an example of a path though every vertex in $G$. This path is shown in graph $G$ below using solid lines. Therefore, $G$ is semi-Hamiltonian [@wilson10].
+
+```{r, fig.height=5.8,fig.width=6}
+plot(g3, vertex.shape="none", edge.width = c(3, 1, 1, 1, 1, 1, 1, 1, 3, 1, 1, 1, 3, 1, 3, 1, 1, 3, 3, 1, 1, 1, 3, 3)) # A simple plot of g3. 
+```
+
+# Reference
