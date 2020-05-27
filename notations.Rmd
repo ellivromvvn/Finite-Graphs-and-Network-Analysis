@@ -1,0 +1,25 @@
+---
+title: "Critique Paper Notations"
+output: html_notebook
+---
+
+1. $\kappa(G)$ -- connectivity of $G$
+2. $\lambda(G)$ -- edge-connectivity of $G$
+3. $\mathcal{P}$ -- graph-theoretic property
+4. $\kappa_{k}(G)$ -- k-extra connectivity of $G$
+5. $\lambda_{k}(G)$ -- k-extra edge-connectivity of $G$
+6. $[X,\overline{X}]$ -- set of edges having endpoints in $X$ and in $\overline{X}$; an edge-cut of $G$; $X\subseteq V(G)$ and $\overline{X} = V(G)-X$
+7. $G[X]$ -- subgraph of $G$ induced by $X$
+8. $\omega_G(X)=|[X,\overline{X}]|$ -- number of vertices in $[X,\overline{X}]$
+9. $\xi_{k}(G)=\text{min}\{\omega_G(X):\;X\subseteq V(G),\;|X|=k,\;\text{and}\; G[X] \;\text{is connected}\}$
+10. optimal-$\kappa_{k}$ -- maximally $k$-connected: $\kappa_{k}(G)=\xi_{k}(G)$
+11. optimal-$\lambda_{k$} -- maximally $k$-edge-connected: $\lambda_{k}(G)=\xi_{k}(G)$
+12. *super*-$\kappa_{k}$ -- super k-extra connected
+13. *super*-$\lambda_{k}$ -- super k-extra edge-connected
+14. link:edge, process:vertex
+15. $n(G)=|V(G)|$ -- order of $G$
+16. $d_{G}(v)$ -- degree of vertex $v$
+17. $\delta(G)=\text{min}\{d_{G}(v)|v\in V(G)\}$
+18. $K_{n}$ -- a complete graph with $n$ vertices
+19. $G\cong H$ -- $G$ is isomorphic to $H$
+
